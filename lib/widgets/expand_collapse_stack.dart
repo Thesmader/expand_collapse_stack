@@ -136,13 +136,39 @@ class _ExpandCollapseChildStackState extends State<ExpandCollapseChildStack> {
                                 ),
                               Expanded(
                                 flex: 1,
-                                child: AnimatedSwitcher(
+                                child: AnimatedCrossFade(
                                   duration: _kDuration,
-                                  switchInCurve: curve,
-                                  switchOutCurve: curve,
-                                  child: index == step
-                                      ? widget.children[index]
-                                      : const SizedBox(),
+                                  firstCurve: Curves.easeIn,
+                                  secondCurve: Curves.easeIn,
+                                  crossFadeState: index == step
+                                      ? CrossFadeState.showFirst
+                                      : CrossFadeState.showSecond,
+                                  firstChild: widget.children[index],
+                                  secondChild: const SizedBox.shrink(),
+                                  layoutBuilder: (
+                                    topChild,
+                                    topChildKey,
+                                    bottomChild,
+                                    bottomChildKey,
+                                  ) {
+                                    return Stack(
+                                      children: [
+                                        Positioned.fill(
+                                          key: bottomChildKey,
+                                          left: 0,
+                                          right: 0,
+                                          top: 0,
+                                          child: bottomChild,
+                                        ),
+                                        Positioned(
+                                          key: topChildKey,
+                                          left: 0,
+                                          right: 0,
+                                          child: topChild,
+                                        )
+                                      ],
+                                    );
+                                  },
                                 ),
                               ),
                             ],
