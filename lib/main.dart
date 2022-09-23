@@ -45,6 +45,36 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size(0, 100),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.grey.shade800),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.close),
+                  ),
+                ),
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey.shade800,
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Icon(Icons.question_mark_rounded),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+        // body: ,
         body: ExpandCollapseChildStack(
           children: List.generate(
             4,
